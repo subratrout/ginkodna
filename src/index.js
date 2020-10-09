@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Sequences from './Sequences';
+import SequenceList from './SequenceList';
 
 ReactDOM.render(
   <React.StrictMode>
     <Sequences />
+    <SequenceList />
   </React.StrictMode>,
   document.getElementById('root')
 );

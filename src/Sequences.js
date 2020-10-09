@@ -62,7 +62,7 @@ class Sequences extends React.Component {
   }
 
   componentDidMount(){
-    // this.sequenceData = JSON.parse(localstorage.getItem('sequences'));
+
   }
 
   render() {
@@ -73,7 +73,7 @@ class Sequences extends React.Component {
         </header>
         <div className="container">
           <h2>Submit Your DNA Sequence header</h2>
-          <div class="col-md-6">
+          <div className="col-md-6">
             <Form noValidate onSubmit={this.handleSubmit}>
               <Form.Group controlId="formName">
                 <Form.Label>Organism/Vector Name:</Form.Label>
