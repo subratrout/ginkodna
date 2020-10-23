@@ -1,9 +1,7 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
-import * as serviceWorker from './serviceWorker';
+import { Route, Link, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Sequences from './Sequences';
 import SequenceList from './views/SequenceList';
 
@@ -12,15 +10,15 @@ import SequenceList from './views/SequenceList';
 const App = () => (
   <div>
     <h1>GINKO DNA Sequence Submitter</h1>
-    <ul role="nav">
+    <ul >
       <li><Link to="/submit-sequence">Submit Sequence</Link></li>
       <li><Link to="/list-sequences">List Sequences</Link></li>
     </ul>
 
-    <div>
-      <Route path='/submit-sequence' component={Sequences} />
+    <Switch>
+      <Route exact path="/submit-sequence" component={Sequences} />
       <Route path='/list-sequences' component={SequenceList} />
-    </div>
+    </Switch>
   </div>
 )
 

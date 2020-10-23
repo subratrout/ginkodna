@@ -1,20 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import App from './App'
-import Sequences from './Sequences';
-import SequenceList from './views/SequenceList';
 
-const routing = (
-  <Router>
-    <div>
-      <Route path = "/" component = {Sequences} />
-      <Route path = "/sequence-list" component = {SequenceList} />
-    </div>
-  </Router>
-)
 ReactDOM.render(
   <React.StrictMode>
     <Router>

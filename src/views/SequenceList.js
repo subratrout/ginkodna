@@ -1,33 +1,106 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Route, Link, Switch, BrowserRouter as Router } from 'react-router-dom';
+import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalFooter from "react-bootstrap/ModalFooter";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import Button from 'react-bootstrap/Button';
 
 class SequenceList extends React.Component {
+
   constructor(props){
     super(props);
     let sequenceList = JSON.parse(localStorage.getItem('sequences')) || [{}];
-    this.state = {sequenceList: sequenceList};
+    this.state = {sequences: sequenceList, filtered: [sequenceList], showModal: false,
+      sequenceName: '', sequenceDescription: '', sequence: 'item.sequence'};
+    this.handleChange = this.handleChange.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.openModalwithSequence = this.openModalwithSequence.bind(this)
   }
 
+  handleClose(){
+    this.setState({showModal: false});
+  }
+
+  handleShow(){
+    this.setState({showModal: true});
+  }
+
+  openModalwithSequence(item){
+    this.setState({showModal: true, sequenceName: item.name, sequenceDescription: item.description, sequence: item.sequence})
+  }
+
+
+  
   componentDidMount(){
+    // this.setState({
+    //   filtered: this.state.sequences
+    // })
+    // console.log(this.state.sequences);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      filtered: nextProps.sequences
+    });
+  }
+
+  handleChange(e){
+    let currentList = [];
+
+    let newList = [];
+    
+    if(e.target.value !== ''){
+      currentList = this.state.sequences;
+      newList = currentList.filter(sequence=>{
+        const seq = sequence.sequenceName.toLowerCase();
+        const filter = e.target.value.toLowerCase();
+        return seq.includes(filter);
+
+      });
+    } else {
+      newList = this.state.sequences;
+    }
+    this.setState({
+      filtered: newList
+    });
 
   }
   render(){
-   // const lists = Object.keys(this.state.SequenceList);
-    let obj = this.state.sequenceList;
-    let list = [...obj];
-    console.log(list);
     return(
+      
       <div className="col-md-8">
-        <h1>List of Sequences:</h1>
+        
+        <h3>List of Sequences:</h3>
 
-        {list.map((gene, index) => (
-          <div className="card">
+        <label htmlFor="search">Search sequence by name:</label>
+        <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
+
+        {this.state.filtered.map((gene, index) => (
+          <div key={index} className="card">
             <div className="card-body">
               <ul>
-                <li key={index}>
-                  <div>Name: {gene.sequenceName}</div>
+                <li >
+                  <div>Name:<Link onClick={() => this.openModalwithSequence(gene)}>{gene.sequenceName}</Link> </div>
                   <div>Description: {gene.sequenceDescription}</div>
                   <div>Sequence: {gene.sequence}</div>
+                  <Modal show={this.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={this.handleClose}>
+                        Close
+                      </Button>
+                      <Button variant="primary" onClick={this.handleClose}>
+                        Save Changes
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </li>
               </ul>
             </div>
