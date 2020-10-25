@@ -2,10 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Link, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Modal from "react-bootstrap/Modal";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalFooter from "react-bootstrap/ModalFooter";
-import ModalTitle from "react-bootstrap/ModalTitle";
 import Button from 'react-bootstrap/Button';
 
 class SequenceList extends React.Component {
@@ -36,10 +32,10 @@ class SequenceList extends React.Component {
 
   
   componentDidMount(){
-    // this.setState({
-    //   filtered: this.state.sequences
-    // })
-    // console.log(this.state.sequences);
+    this.setState({
+      filtered: this.state.sequences
+    })
+    console.log(this.state.sequences);
   }
 
   componentWillReceiveProps(nextProps) {
