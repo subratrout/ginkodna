@@ -44,6 +44,14 @@ class SequenceList extends React.Component {
     });
   }
 
+  truncateSequence(str, num) {
+    if (str && str.length > num) {
+      return str.slice(0, num) + "...";
+    } else {
+      return str;
+    }
+  }
+
   handleChange(e){
     let currentList = [];
 
@@ -71,7 +79,15 @@ class SequenceList extends React.Component {
       <div className="col-md-8">
         
         <h3>List of Sequences:</h3>
-
+        <a
+          className="pull-right btn btn-primary"
+          style={{ margin: 10 }}
+          href={`data:text/json;charset=utf-8,${encodeURIComponent(
+            JSON.stringify(this.state.sequences)
+          )}`}
+          download="data.json">
+          DOWNLOAD DATA AS JSON
+        </a>
         <label htmlFor="search">Search sequence by name:</label>
         <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
 
@@ -82,7 +98,7 @@ class SequenceList extends React.Component {
                 <li >
                   <div>Name:<Link onClick={() => this.openModalwithSequence(gene)}>{gene.sequenceName}</Link> </div>
                   <div>Description: {gene.sequenceDescription}</div>
-                  <div>Sequence: {gene.sequence}</div>
+                  <div>Sequence: {this.truncateSequence(gene.sequence, 5)}</div>
                   <Modal show={this.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                       <Modal.Title>Modal heading</Modal.Title>

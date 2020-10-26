@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { withRouter } from 'react-router-dom'
 
 const validateForm = errors => {
   let valid = true;
@@ -79,9 +80,9 @@ class Sequences extends React.Component {
         sequence: this.state.sequence.toUpperCase()
       };
       sequenceData.push(single_seq);
-      localStorage.setItem('sequences', JSON.stringify(sequenceData))
-
- 
+      localStorage.setItem('sequences', JSON.stringify(sequenceData));
+      this.props.history.push('/list-sequences');
+  
       console.log("valid form");
       console.log("isValidateForm(this.state.errors): " +validateForm(this.state.errors));
       console.log("this.state.errors: " + this.state.errors);
@@ -92,22 +93,9 @@ class Sequences extends React.Component {
       return false;
     }
 
-    this.setState({
-      name: '',
-      description: '',
-      sequence: '',
-      errors: {
-        name: '',
-        description: '',
-        sequence: ''
-      }
-    });
+    
   }
 
-
-  componentDidMount(){
-
-  }
 
   render() {
     const { errors } = this.state;
@@ -154,4 +142,4 @@ class Sequences extends React.Component {
   }
 }
 
-export default Sequences;
+export default withRouter(Sequences);
