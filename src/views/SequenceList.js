@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Link, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
 import Button from 'react-bootstrap/Button';
 
 class SequenceList extends React.Component {
@@ -10,27 +11,21 @@ class SequenceList extends React.Component {
     super(props);
     let sequenceList = JSON.parse(localStorage.getItem('sequences')) || [{}];
     this.state = {sequences: sequenceList, filtered: [sequenceList], showModal: false,
-      sequenceName: '', sequenceDescription: '', sequence: 'item.sequence'};
+      sequenceName: '', sequenceDescription: '', sequence: 'item.sequence', selectedName: '', selectedSequence:'', selectedDescription:''};
     this.handleChange = this.handleChange.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.openModalwithSequence = this.openModalwithSequence.bind(this)
   }
 
   handleClose(){
     this.setState({showModal: false});
   }
 
-  handleShow(){
-    this.setState({showModal: true});
+  handleShow(sequence){
+    console.log("Handle show clicked"+ sequence.sequence)
+    this.setState({showModal:true, selectedName: sequence.sequenceName, selectedSequence: sequence.sequence, selectedDescription: sequence.sequenceDescription});
   }
 
-  openModalwithSequence(item){
-    this.setState({showModal: true, sequenceName: item.name, sequenceDescription: item.description, sequence: item.sequence})
-  }
-
-
-  
   componentDidMount(){
     this.setState({
       filtered: this.state.sequences
@@ -96,29 +91,36 @@ class SequenceList extends React.Component {
             <div className="card-body">
               <ul>
                 <li >
-                  <div>Name:<Link onClick={() => this.openModalwithSequence(gene)}>{gene.sequenceName}</Link> </div>
+                  <div>
+                    <button onClick={() => this.handleShow(gene)}>
+                      <h4>{gene.sequenceName}</h4>
+                    </button>
+                  </div>
                   <div>Description: {gene.sequenceDescription}</div>
                   <div>Sequence: {this.truncateSequence(gene.sequence, 5)}</div>
-                  <Modal show={this.show} onHide={this.handleClose}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={this.handleClose}>
-                        Close
-                      </Button>
-                      <Button variant="primary" onClick={this.handleClose}>
-                        Save Changes
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+
                 </li>
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                  <Modal.Header closeButton>
+        <Modal.Title>{this.state.selectedName}</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    Sequence: <p>{this.state.selectedSequence}</p>
+                      Description: <p>{this.state.selectedDescription}</p>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={this.handleClose}>
+                      Close
+                      </Button>
+                  </Modal.Footer>
+                </Modal>
               </ul>
             </div>
           </div>
           
         ))}
+
+
       </div>
     )
   }
