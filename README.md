@@ -1,6 +1,5 @@
 ## Coding Challenge:
 
-
 The National Center for Biotechnology Information (NCBI) manages a database recognized as
 the authority of all known molecular DNA sequences. As of now, this important NCBI data is
 only accessible via downloadable files, so let’s create a state of the art UI to visualize the DNA
@@ -20,6 +19,8 @@ user to enter a single sequence name, sequence description, and DNA sequence tha
 the four DNA letters. For this assignment it is acceptable to store all sequence data with some
 in-memory or browser storage. 
 
+## Requirments:
+
 - The data should be validated: the sequence should only contain valid characters and should not already exist in our sequence storage. If validation fails, do not add the sequence and display the validation error in the form.
 
 - The “Sequences” view should display all added DNA sequences, showing the name, description and truncated DNA sequence. It should have the following features:
@@ -35,3 +36,15 @@ sequence. Each character in the DNA sequence should be a different color.
 - Bonus features: Add json import and export in the Sequences view. Exporting will give
 the user a json file of the stored sequences in the table. Importing allows a user to take a
 json file of DNA sequences and updates the table.
+
+## How to view the project
+
+- The project is built using React
+- No configuration nencessary
+- download the app
+
+`cd ginkodna`
+
+`npm start`
+
+ - Open http://localhost:3000 to view it in the browser.
