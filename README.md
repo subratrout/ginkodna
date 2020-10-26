@@ -43,8 +43,8 @@ json file of DNA sequences and updates the table.
 - No configuration nencessary
 - download the app
 
-`cd ginkodna`
+- `cd ginkodna`
 
-`npm start`
+- `npm start`
 
  - Open http://localhost:3000 to view it in the browser.
